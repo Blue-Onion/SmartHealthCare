@@ -1,0 +1,5 @@
+com/smarthealth/logic/SymptomChecker.class
+com/smarthealth/model/Appointment.class
+com/smarthealth/logic/HealthReportGenerator.class
+com/smarthealth/ui/MainFrame.class
+com/smarthealth/model/Patient.class
