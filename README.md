@@ -27,12 +27,6 @@ A simple, Java-based healthcare management system with a graphical user interfac
    mvn exec:java -Dexec.mainClass="com.smarthealth.ui.MainFrame"
    ```
 
-## Code Structure
-
-- `com.smarthealth.model`: Contains `Patient` and `Appointment` data classes.
-- `com.smarthealth.logic`: Contains `SymptomChecker` (logic) and `HealthReportGenerator` (PDF logic).
-- `com.smarthealth.ui`: Contains `MainFrame` (Swing UI).
-
 ## Usage Instructions
 
 1. **Add Patient**: Go to the "Add Patient" tab, fill in the details, and click "Add Patient".
@@ -42,3 +36,56 @@ A simple, Java-based healthcare management system with a graphical user interfac
    - Enter symptoms like "fever, cough" or "headache, nausea".
    - Click "Check Symptoms" to see the suggestion.
    - Enter the Patient ID and click "Generate PDF Report" to save a PDF file in the project root.
+
+## Architecture
+The Smart Healthcare System is built using a simple 3-tier architectural approach to ensure modularity and ease of maintenance.
+
+### System Flow Diagram
+```mermaid
+graph TD
+    A[User/Front-end] --> B[UI Layer: MainFrame.java]
+    B --> C[Logic Layer: SymptomChecker.java]
+    B --> D[Logic Layer: HealthReportGenerator.java]
+    B --> E[Data Layer: Patient & Appointment List]
+    D -.-> F[Output: PDF Report]
+```
+
+### Components
+1. **Presentation Layer (Swing UI)**: 
+   - `MainFrame.java`: The central hub that manages the graphical interface, user events, and local data state.
+2. **Logic Layer (Business Logic)**:
+   - `SymptomChecker.java`: A rule-based engine that maps symptom combinations to possible medical conditions.
+   - `HealthReportGenerator.java`: Specialized component using iText 7 to produce structured PDF reports.
+3. **Data Layer (In-Memory)**:
+   - Uses Java `ArrayList` to store `Patient` and `Appointment` objects during the application session.
+
+---
+
+## Project Report
+
+### 1. Project Background
+This project was developed as a college-level smart healthcare management system. It aims to demonstrate the practical application of Core Java, GUI development (Swing), and external library integration (iText).
+
+### 2. Technology Stack
+- **Language**: Java 11
+- **UI Framework**: Java Swing (AWT/Swing)
+- **Dependency Management**: Maven
+- **Core Dependencies**: 
+  - `com.itextpdf`: For dynamic PDF report generation.
+  - `slf4j-simple`: For lightweight logging support.
+
+### 3. Key Functionalities & Successes
+- **Automated Diagnosis**: Successfully implemented a rule-based system for preliminary health assessment.
+- **Dynamic Report Generation**: Generates persistent PDF artifacts for patient records.
+- **Data Integrity**: Maintains cross-references between appointments and patient IDs.
+
+### 4. Implementation Details
+The system organizes code into logical packages:
+- `com.smarthealth.model`: Entity classes.
+- `com.smarthealth.logic`: Core functional logic.
+- `com.smarthealth.ui`: Visual interface.
+
+### 5. Future Scope
+- Integration with a persistent database (e.g., SQLite or MySQL).
+- Enhanced "smart" diagnostic logic using machine learning.
+- Patient history tracking and graphical analytics.
