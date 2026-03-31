@@ -19,6 +19,7 @@ public class SymptomChecker {
         // Simple rule-based logic
         diagnosisRules.put("fever,cough", "Possible Flu (Influenza)");
         diagnosisRules.put("fever,cough,sore throat", "Possible Streptococcal Pharyngitis (Strep Throat)");
+        diagnosisRules.put("cough", "Possible Common Cold or Viral Infection. Common accompanying symptoms: Fever, Sore Throat.");
         diagnosisRules.put("headache,nausea", "Possible Migraine");
         diagnosisRules.put("fatigue,shortness of breath", "Possible Anemia or Cardiac issue - Consult a Doctor");
         diagnosisRules.put("sneezing,runny nose,itchy eyes", "Possible Allergies");

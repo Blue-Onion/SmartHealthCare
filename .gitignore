@@ -1,0 +1,33 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/github/gitignore/blob/main/Java.gitignore
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+# IDEs
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+.factorypath
+.vscode/
+# OS-specific
+.DS_Store
+Thumbs.db
+# Application-specific
+Report_*.pdf
