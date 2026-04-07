@@ -66,13 +66,22 @@ graph TD
 ### 1. Project Background
 This project was developed as a college-level smart healthcare management system. It aims to demonstrate the practical application of Core Java, GUI development (Swing), and external library integration (iText).
 
-### 2. Technology Stack
-- **Language**: Java 11
-- **UI Framework**: Java Swing (AWT/Swing)
-- **Dependency Management**: Maven
-- **Core Dependencies**: 
-  - `com.itextpdf`: For dynamic PDF report generation.
-  - `slf4j-simple`: For lightweight logging support.
+## Technology Stack
+
+The Smart Healthcare System leverages a modern, robust, and AI-powered technology stack:
+
+- **Language**: Java 11 (OpenJDK)
+- **AI Engine**: **Google Gemini API (1.5 Flash)** — Powers the advanced symptom checker for dynamic health analysis.
+- **UI Framework**: **Java Swing** — Provides a responsive graphical user interface for desktop and containerized environments.
+- **PDF Generation**: **iText 7** — Used for creating professional, structured patient reports.
+- **Dependency Management**: **Maven** — Handles all external libraries and build lifecycles.
+- **Containerization**: **Docker & Docker Compose** — Ensures consistent deployment with X11 forwarding for GUI support.
+- **Key Libraries**:
+  - `com.google.gson`: For JSON parsing and interaction with the Gemini API.
+  - `dotenv-java`: For secure management of API keys via `.env` files.
+  - `slf4j-simple`: For lightweight logging and debugging.
+
+---
 
 ### 3. Key Functionalities & Successes
 - **Automated Diagnosis**: Successfully implemented a rule-based system for preliminary health assessment.

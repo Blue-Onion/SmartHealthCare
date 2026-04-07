@@ -9,14 +9,16 @@ import java.util.Map;
 public class SymptomChecker {
 
     private final Map<String, String> diagnosisRules;
+    private final GeminiClient geminiClient;
 
     public SymptomChecker() {
         diagnosisRules = new HashMap<>();
         initializeRules();
+        this.geminiClient = new GeminiClient();
     }
 
     private void initializeRules() {
-        // Simple rule-based logic
+        // Simple rule-based logic fallback
         diagnosisRules.put("fever,cough", "Possible Flu (Influenza)");
         diagnosisRules.put("fever,cough,sore throat", "Possible Streptococcal Pharyngitis (Strep Throat)");
         diagnosisRules.put("cough", "Possible Common Cold or Viral Infection. Common accompanying symptoms: Fever, Sore Throat.");
@@ -29,18 +31,33 @@ public class SymptomChecker {
     }
 
     /**
-     * Checks symptoms and returns a suggestion.
+     * Checks symptoms using Gemini AI with a rule-based fallback.
      * @param symptoms Comma-separated symptoms
-     * @return Possible diagnosis or general advice
+     * @return Possible diagnosis or AI analysis.
      */
     public String checkSymptoms(String symptoms) {
         if (symptoms == null || symptoms.trim().isEmpty()) {
             return "Please enter symptoms (e.g., fever, cough).";
         }
 
+        // 1. Try Gemini API first (Modern AI approach)
+        String aiDiagnosis = geminiClient.analyzeSymptoms(symptoms);
+        
+        // If the AI service returned an error, fallback to rule-based logic
+        if (aiDiagnosis.startsWith("Error:") || aiDiagnosis.startsWith("Critical Error:")) {
+            return fallbackCheck(symptoms);
+        }
+
+        return aiDiagnosis;
+    }
+
+    /**
+     * Rule-based fallback if AI is unavailable.
+     */
+    private String fallbackCheck(String symptoms) {
         String input = symptoms.toLowerCase().replace(" ", "");
         
-        // Check for exact matches in the rule map
+        // Check for matches in the rule map
         for (Map.Entry<String, String> entry : diagnosisRules.entrySet()) {
             String[] ruleSymptoms = entry.getKey().split(",");
             boolean allMatch = true;
@@ -51,10 +68,10 @@ public class SymptomChecker {
                 }
             }
             if (allMatch) {
-                return entry.getValue();
+                return "[Fallback Analysis] " + entry.getValue();
             }
         }
 
-        return "Condition not found in our database. Please consult a qualified medical professional.";
+        return "Condition not found in our database and AI service is currently unavailable. Please consult a qualified medical professional.";
     }
 }

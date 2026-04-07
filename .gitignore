@@ -31,3 +31,4 @@ buildNumber.properties
 Thumbs.db
 # Application-specific
 Report_*.pdf
+.env
