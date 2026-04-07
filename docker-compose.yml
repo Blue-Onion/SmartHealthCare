@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  smart-healthcare:
+    build: .
+    image: smart-healthcare:latest
+    container_name: smart-healthcare
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      # Share the host's X11 socket so the Swing GUI can render
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      # Persist generated PDF reports on the host
+      - ./reports:/app/reports
+    network_mode: host

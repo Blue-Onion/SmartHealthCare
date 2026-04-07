@@ -89,3 +89,94 @@ The system organizes code into logical packages:
 - Integration with a persistent database (e.g., SQLite or MySQL).
 - Enhanced "smart" diagnostic logic using machine learning.
 - Patient history tracking and graphical analytics.
+
+---
+
+## Docker
+
+The application is fully containerised using a **multi-stage** Docker build (Maven build → slim JRE runtime).
+
+### Prerequisites
+- [Docker](https://docs.docker.com/get-docker/) installed and running.
+- (Optional) [Docker Compose](https://docs.docker.com/compose/install/) for a single-command workflow.
+
+> **Note:** Because this is a Swing (GUI) application, the container must be able to access a display server (X11). The steps below explain how.
+
+---
+
+### Build the Docker Image
+
+```bash
+docker build -t smart-healthcare:latest .
+```
+
+### Run with Docker
+
+#### Linux (native X11)
+
+```bash
+# Allow Docker to access your display
+xhost +local:docker
+
+docker run --rm -it \
+  -e DISPLAY=$DISPLAY \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  --name smart-healthcare \
+  smart-healthcare:latest
+```
+
+#### macOS (via XQuartz)
+
+1. Install [XQuartz](https://www.xquartz.org/) and restart your Mac.
+2. Open XQuartz → **Preferences → Security** → enable *"Allow connections from network clients"*.
+3. Run:
+
+```bash
+xhost +127.0.0.1
+
+docker run --rm -it \
+  -e DISPLAY=host.docker.internal:0 \
+  --name smart-healthcare \
+  smart-healthcare:latest
+```
+
+#### Windows (via VcXsrv / X410)
+
+1. Install an X server such as [VcXsrv](https://sourceforge.net/projects/vcxsrv/) and start it with *"Disable access control"* checked.
+2. Run (PowerShell):
+
+```powershell
+docker run --rm -it `
+  -e DISPLAY=host.docker.internal:0.0 `
+  --name smart-healthcare `
+  smart-healthcare:latest
+```
+
+---
+
+### Run with Docker Compose
+
+```bash
+# Build and start (Linux — DISPLAY is inherited from the host)
+docker compose up --build
+
+# Stop
+docker compose down
+```
+
+For macOS / Windows, override `DISPLAY` before running:
+```bash
+DISPLAY=host.docker.internal:0 docker compose up --build
+```
+
+---
+
+### Useful Commands
+
+| Command | Description |
+|---|---|
+| `docker build -t smart-healthcare .` | Build the image |
+| `docker run --rm smart-healthcare` | Run (headless — will fail without a display) |
+| `docker compose up --build` | Build & run via Compose |
+| `docker compose down` | Stop & remove the container |
+| `docker rmi smart-healthcare` | Remove the image |

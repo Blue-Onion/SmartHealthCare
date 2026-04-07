@@ -1,0 +1,27 @@
+# Build artifacts
+target/
+
+# IDE & editor files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+
+# Git
+.git/
+.gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated reports
+Report_*.pdf
+
+# Docker files (no need to COPY themselves)
+Dockerfile
+docker-compose.yml
+.dockerignore
